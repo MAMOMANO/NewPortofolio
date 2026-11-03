@@ -2,10 +2,10 @@ import SectionTitle from "../components/SectionTitle";
 import useReveal from "../hooks/useReveal";
 import { socials } from "../data/socials";
 
-const EMAIL = "emailkamu@example.com"; // TODO: ganti email aslimu
+const EMAIL = "marnojuluk@gmail.com"; // TODO: ganti email aslimu
 
 // const socials = [
-//   { label: "GitHub", href: "https://github.com/USERNAME" },
+//   { label: "GitHub", href: "https://github.com/MAMOMANO" },
 //   { label: "LinkedIn", href: "https://linkedin.com/in/USERNAME" },
 //   { label: "Instagram", href: "https://instagram.com/USERNAME" },
 // ];

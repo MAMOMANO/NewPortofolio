@@ -14,23 +14,29 @@ export default function App() {
   const [showLoader, setShowLoader] = useState(true);
 
   return (
-    <div className="relative isolate bg-black text-white">
-      <div className="fixed inset-0 -z-10">
+    <div className="relative isolate min-h-screen bg-black text-white">
+      {/* Background paling belakang */}
+      <div className="pointer-events-none fixed inset-0 z-0">
         <Topography color="#ffffff" opacity={0.4} speed={0.2} />
       </div>
+
       {showLoader && (
         <Loader
           onReady={() => setReady(true)}
           onDone={() => setShowLoader(false)}
         />
       )}
-      <Navbar />
-      <Hero ready={ready} />
-      <About />
-      <Project />
-      <Skills />
-      <Sertifikat />
-      <Contact />
+
+      {/* Semua section berada di atas background */}
+      <div className="relative z-10">
+        <Navbar />
+        <Hero ready={ready} />
+        <About />
+        <Project />
+        <Skills />
+        <Sertifikat />
+        <Contact />
+      </div>
     </div>
   );
 }

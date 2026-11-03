@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import TextPressure from "../components/TexsPresure";
 
 gsap.registerPlugin(useGSAP);
 
@@ -68,12 +69,22 @@ export default function Hero({ ready = true }) {
 
         {/* BAWAH: nama, tepat di tengah */}
         <div className="overflow-hidden pb-3">
-          <h1
+          {/* <h1
             data-hero="title"
             className="font-display text-center text-[clamp(2.75rem,8vw,5.75rem)] leading-[0.95] font-extrabold tracking-tight text-balance"
           >
             MARIANO ANTONINO
-          </h1>
+          </h1> */}
+          <div data-hero="title" className="h-[clamp(4rem,11vw,9rem)] w-full">
+            <TextPressure
+              text="MARIANO ANTONINO"
+              flex
+              width
+              weight
+              idle="wave"
+              minFontSize={36}
+            />
+          </div>
         </div>
       </div>
     </section>
