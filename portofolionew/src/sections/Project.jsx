@@ -9,10 +9,10 @@ const projects = [
     description:
       "Sistem pemesanan galon air berbasis web, dibangun dengan Laravel dan PostgreSQL.",
     stack: ["Laravel", "PostgreSQL"],
-    role: "TODO: peran kamu",
-    image: "", // contoh: "/projects/gogalon.png" (file di folder public)
-    demo: "",
-    repo: "",
+    role: "TODO: Frontend & ui/ux",
+    image: "/img/destinasi.png", // contoh: "/projects/gogalon.png" (file di folder public)
+    demo: "https://exploreindonesia-mamo5.vercel.app/",
+    repo: "https://github.com/MAMOMANO/Exlpore_Indonesia",
   },
   {
     title: "Undangan Pernikahan 3D",
@@ -47,7 +47,7 @@ export default function Project() {
       ref={root}
       id="project"
       aria-labelledby="project-title"
-      className="relative text-white"
+      className="relative text-white z-10"
     >
       <div className="mx-auto max-w-6xl px-6 py-24 sm:px-10">
         <SectionTitle id="project-title">Project</SectionTitle>

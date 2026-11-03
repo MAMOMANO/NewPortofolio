@@ -1,16 +1,8 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import Topography from "../components/Topography";
-// import HalftoneReveal from "../components/HalftoneReveal";
 
 gsap.registerPlugin(useGSAP);
-
-const socials = [
-  { label: "GitHub", href: "https://github.com/USERNAME" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/USERNAME" },
-  { label: "Instagram", href: "https://instagram.com/USERNAME" },
-];
 
 export default function Hero({ ready = true }) {
   const root = useRef(null);
@@ -41,8 +33,9 @@ export default function Hero({ ready = true }) {
 
   return (
     <section ref={root} id="home" className="relative isolate text-white">
+      {/* object-[50%_85%] = posisi crop video; naikkan angkanya untuk menaikkan kepala */}
       <video
-        className="absolute inset-0 -z-20 h-full w-full object-cover mask-[linear-gradient(to_bottom,black_70%,transparent)]"
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-[50%_85%] mask-[linear-gradient(to_bottom,black_70%,transparent)]"
         src="/metal-human.mp4"
         autoPlay
         muted
@@ -51,17 +44,25 @@ export default function Hero({ ready = true }) {
         aria-hidden="true"
       />
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-black/40" />
-      <div className="mx-auto flex min-h-svh max-w-6xl flex-col px-6 py-10 sm:px-10">
+
+      <div className="mx-auto flex min-h-svh max-w-7xl flex-col px-6 py-10 sm:px-10">
         {/* TENGAH: role kiri & kanan, sejajar kepala */}
-        <div className="flex flex-1 items-center pb-[12svh]">
+        <div className="flex flex-1 items-center pb-[12svh] lg:pb-[24svh]">
           <div
             data-hero="fade"
-            className="grid w-full grid-cols-[1fr_auto_1fr] items-center gap-3 text-sm font-semibold sm:text-xl lg:text-2xl"
+            className="grid w-full grid-cols-1 items-center gap-6 text-center font-semibold lg:grid-cols-[1fr_auto_1fr] lg:gap-0"
           >
-            <p className="text-right">Frontend Developer</p>
-            {/* Ruang kosong tempat kepala di video */}
-            <div aria-hidden="true" className="w-[36vw] max-w-md" />
-            <p className="text-left">UI/UX Designer</p>
+            <p className="text-4xl lg:text-right xl:text-5xl">
+              FRONTEND DEVELOPER
+            </p>
+
+            {/* Ruang kosong tempat kepala di video; lebarkan untuk menjauhkan teks */}
+            <div
+              aria-hidden="true"
+              className="hidden lg:block lg:w-[42vw] lg:max-w-xl"
+            />
+
+            <p className="text-4xl lg:text-left xl:text-5xl">UI/UX Designer</p>
           </div>
         </div>
 
