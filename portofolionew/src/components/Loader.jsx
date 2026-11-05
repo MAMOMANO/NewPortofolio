@@ -104,14 +104,14 @@ export default function Loader({ onReady, onDone }) {
       ref={root}
       role="status"
       aria-live="polite"
-      className="fixed inset-0 z-100 grid place-items-center bg-dua text-satu"
+      className="fixed inset-0 z-100 grid place-items-center bg-black text-white"
     >
       <div className="flex flex-col items-center gap-5">
         <p className="font-display text-[clamp(3rem,12vw,7rem)] leading-none font-extrabold tabular-nums">
           <span ref={num}>0</span>%
         </p>
-        <div className="h-1 w-48 overflow-hidden rounded-full bg-satu/20">
-          <div ref={bar} className="h-full w-0 bg-tiga" />
+        <div className="h-1 w-48 overflow-hidden rounded-full bg-gray-600">
+          <div ref={bar} className="h-full w-0 bg-white" />
         </div>
         <span className="sr-only">Memuat halaman</span>
       </div>

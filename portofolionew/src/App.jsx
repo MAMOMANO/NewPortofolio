@@ -16,7 +16,7 @@ export default function App() {
   return (
     <div className="relative isolate min-h-screen bg-black text-white">
       {/* Background paling belakang */}
-      <div className="pointer-events-none fixed inset-0 z-0">
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-50">
         <Topography color="#ffffff" opacity={0.4} speed={0.2} />
       </div>
 

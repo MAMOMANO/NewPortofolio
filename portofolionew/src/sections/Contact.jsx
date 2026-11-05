@@ -18,14 +18,14 @@ export default function Contact() {
       ref={root}
       id="contact"
       aria-labelledby="contact-title"
-      className="relative text-white"
+      className="relative text-white text-center"
     >
       <div className="mx-auto max-w-6xl px-6 py-24 sm:px-10">
-        <SectionTitle id="contact-title">Hubungi Saya</SectionTitle>
+        <SectionTitle id="contact-title">YOU WANT</SectionTitle>
 
         <p
           data-anim="item"
-          className="mt-8 max-w-[48ch] text-lg leading-relaxed text-white/80"
+          className="mx-auto mt-8 max-w-[48ch] text-lg leading-relaxed text-white/80"
         >
           Punya proyek, ide kolaborasi, atau sekadar ingin menyapa? Kirim pesan
           kapan saja.
@@ -40,7 +40,7 @@ export default function Contact() {
         </a>
 
         <nav data-anim="item" aria-label="Tautan sosial" className="mt-12">
-          <ul className="flex flex-wrap gap-x-8 gap-y-3">
+          <ul className="flex flex-wrap gap-x-8 gap-y-3 justify-center">
             {socials.map(({ label, href }) => (
               <li key={label}>
                 <a

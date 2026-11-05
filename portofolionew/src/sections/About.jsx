@@ -7,6 +7,41 @@ import ProfilleCard from "../components/ProfilleCard";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
+
+const focusRing =
+  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-400";
+
+const kicker =
+  "block text-sm font-semibold uppercase tracking-[0.25em] text-white";
+
+const primaryBtn = `group inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 font-semibold text-black transition-all duration-300 hover:-translate-y-1 hover:bg-purple-400 hover:text-white hover:shadow-[0_10px_35px_rgba(168,85,247,0.25)] active:translate-y-0 active:scale-95 ${focusRing}`;
+
+const secondaryBtn = `group inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:border-purple-400 hover:bg-purple-400/10 active:translate-y-0 active:scale-95 ${focusRing}`;
+
+const Highlight = ({ children }) => (
+  <strong className="font-semibold text-white">{children}</strong>
+);
+
+const DownloadIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    className="transition-transform duration-300 group-hover:translate-y-1"
+  >
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+    <path d="m7 10 5 5 5-5" />
+    <path d="M12 15V3" />
+  </svg>
+);
+
 export default function About() {
   const root = useRef(null);
 
@@ -14,6 +49,7 @@ export default function About() {
     () => {
       const mm = gsap.matchMedia();
 
+      // Animasi dilewati kalau pengguna mematikan animasi di perangkatnya
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         const tl = gsap.timeline({
           defaults: { ease: "power3.out" },
@@ -24,28 +60,16 @@ export default function About() {
           },
         });
 
-        tl.from("[data-anim='title']", {
-          y: 50,
-          opacity: 0,
-          duration: 0.9,
-        })
+        tl.from("[data-anim='title']", { y: 50, opacity: 0, duration: 0.9 })
           .from(
             "[data-anim='card']",
-            {
-              y: 40,
-              opacity: 0,
-              duration: 0.8,
-            },
+            
+            { y: 40, opacity: 0, duration: 0.8, clearProps: "transform" },
             "-=0.5",
           )
           .from(
             "[data-anim='text']",
-            {
-              y: 30,
-              opacity: 0,
-              duration: 0.8,
-              stagger: 0.15,
-            },
+            { y: 30, opacity: 0, duration: 0.8, stagger: 0.15 },
             "-=0.5",
           );
       });
@@ -56,42 +80,40 @@ export default function About() {
   );
 
   const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    document
+      .getElementById("contact")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <section
       ref={root}
       id="about"
+      aria-labelledby="about-title"
       className="relative overflow-hidden text-white"
     >
-      {/* Background decoration */}
-      <div className="pointer-events-none absolute -top-40 left-1/4 h-96 w-96 rounded-full bg-purple-600/10 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-500/10 blur-[120px]" />
+      {/* Dekorasi latar */}
+      {/* <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-40 left-1/4 h-96 w-96 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-500/10 blur-[120px]" />
+      </div> */}
 
       <div className="relative z-10 mx-auto grid min-h-svh max-w-6xl items-center gap-14 px-6 py-24 sm:px-10 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
-        {/* LEFT COLUMN */}
+        {/* KOLOM KIRI: judul + kartu profil */}
         <div>
-          <div className="mb-8 overflow-hidden">
-            <span
-              data-anim="title"
-              className="mb-4 block text-sm font-semibold uppercase tracking-[0.3em] text-white"
-            >
+          <div className="mb-8">
+            <span data-anim="title" className={`${kicker} mb-4`}>
               Get to know me
             </span>
 
             <h2
+              id="about-title"
               data-anim="title"
-              className="font-display text-[clamp(2.8rem,7vw,5.5rem)] font-extrabold leading-[0.95] tracking-tight"
+              className="font-display text-[clamp(2.8rem,7vw,5.5rem)] leading-[0.95] font-extrabold tracking-tight"
             >
               Tentang
               <br />
-              <span className=" text-white">
-                Saya.
-              </span>
+              Saya.
             </h2>
           </div>
 
@@ -110,92 +132,59 @@ export default function About() {
               tiltStrength={12}
               parallax={8}
               radius={16}
-              enableTilt={true}
+              enableTilt
+              enableMobileTilt={false}
               intro
               showUserInfo
-              enableMobileTilt={false}
               theme="dark"
               onContactClick={scrollToContact}
             />
           </div>
         </div>
 
-        {/* RIGHT COLUMN */}
+        {/* KOLOM KANAN: deskripsi, tombol, sosial */}
         <div className="flex flex-col justify-center">
           <div data-anim="text">
-            <span className="mb-5 block text-sm font-semibold uppercase tracking-[0.25em] text-white">
-              About Me
-            </span>
+            <span className={`${kicker} mb-5`}>About Me</span>
 
-            <p className="text-base leading-[1.9] text-white/65 sm:text-lg">
-              Saya merupakan fresh graduate Teknik Informatika dari Universitas
-              Mercu Buana Jakarta yang memiliki ketertarikan pada{" "}
-              <strong className="font-semibold text-white">
-                Frontend Development dan UI/UX Design
-              </strong>
-              . Saya senang membangun antarmuka website yang modern, responsif,
-              dan interaktif dengan mengutamakan pengalaman pengguna. Saya juga
-              tertarik mengeksplorasi pemanfaatan{" "}
-              <strong className="font-semibold text-white">
-                Artificial Intelligence (AI)
-              </strong>{" "}
-              dalam proses desain dan pengembangan produk digital. Dengan
-              semangat belajar dan berkembang, saya terus mengasah keterampilan
-              teknis serta mencari cara untuk menciptakan solusi digital yang
-              kreatif dan fungsional. Saya terbuka terhadap peluang karier,
-              kolaborasi, dan proyek baru untuk mengembangkan kemampuan serta
-              memberikan kontribusi dalam tim.
+            <p className="text-base leading-[1.9] text-white/70 sm:text-lg">
+              Fresh graduate Teknik Informatika Universitas Mercu Buana Jakarta
+              yang berfokus pada{" "}
+              <Highlight>Frontend Development dan UI/UX Design</Highlight>. Saya
+              membangun antarmuka web yang modern, responsif, dan nyaman
+              dipakai, serta tertarik memanfaatkan{" "}
+              <Highlight>Artificial Intelligence (AI)</Highlight> dalam proses
+              desain dan pengembangan. Terbuka untuk peluang karier dan
+              kolaborasi.
             </p>
           </div>
 
-          {/* ACTION BUTTONS */}
           <div
             data-anim="text"
             className="mt-10 flex flex-wrap items-center gap-5"
           >
-            <a
-              href="/cv.pdf"
-              download
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-white px-7 py-4 font-semibold text-black transition-all duration-300 hover:-translate-y-1 hover:bg-purple-400 hover:text-white hover:shadow-[0_10px_35px_rgba(168,85,247,0.25)] active:translate-y-0 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-400"
-            >
-              <span>Download CV</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="transition-transform duration-300 group-hover:translate-y-1"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <path d="m7 10 5 5 5-5" />
-                <path d="M12 15V3" />
-              </svg>
+            <a href="/cv.pdf" download className={primaryBtn}>
+              Download CV
+              <DownloadIcon />
             </a>
 
-            <button
-              type="button"
-              onClick={scrollToContact}
-              className="group inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:border-purple-400 hover:bg-purple-400/10 active:translate-y-0 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-400"
-            >
-              Let's Talk
-              <span className="transition-transform duration-300 group-hover:translate-x-1">
+            <a href="#contact" className={secondaryBtn}>
+              Let&apos;s Talk
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              >
                 →
               </span>
-            </button>
+            </a>
           </div>
 
-          {/* SOCIAL LINKS */}
           <nav
             data-anim="text"
             aria-label="Tautan sosial"
             className="mt-12 border-t border-white/10 pt-7"
           >
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-white/60">
               Find me on
             </p>
 
@@ -206,7 +195,7 @@ export default function About() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-white/60 transition-all duration-300 hover:text-purple-400 hover:underline hover:underline-offset-8 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-400"
+                    className={`text-sm font-medium text-white/70 transition-colors duration-300 hover:text-purple-400 hover:underline hover:underline-offset-8 ${focusRing}`}
                   >
                     {label}
                   </a>

@@ -1,8 +1,19 @@
+import { useRef, useState } from "react";
 import SectionTitle from "../components/SectionTitle";
 import SpotlightCard from "../components/SpotlightCard";
 import useReveal from "../hooks/useReveal";
+import { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Label: "Freelance" | "Tugas Akhir" | "Personal"
+const focusRing =
+  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-400";
+
+// const kicker =
+//   "block text-sm font-semibold uppercase tracking-[0.25em] text-white";
+const primaryBtn = `group inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 font-semibold text-black transition-all duration-300 hover:-translate-y-1 hover:bg-purple-400 hover:text-white hover:shadow-[0_10px_35px_rgba(168,85,247,0.25)] active:translate-y-0 active:scale-95 ${focusRing}`;
+
 const projects = [
   {
     title: "GoGalon",
@@ -130,6 +141,80 @@ const linkClass =
 
 export default function Project() {
   const root = useReveal();
+  const [isShow, setIsShow] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isClosing, setIsClosing] = useState(false);
+  const modalRef = useRef(null);
+  const overlayRef = useRef(null);
+  const visibleProjects = isShow ? projects : projects.slice(0, 4);
+
+  useEffect(() => {
+    ScrollTrigger.refresh();
+  }, [isShow]);
+
+  
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen || !modalRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        modalRef.current,
+        {
+          opacity: 0,
+          y: 24,
+          scale: 0.97,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.35,
+          ease: "power2.out",
+        },
+      );
+    });
+
+    return () => ctx.revert();
+  }, [isOpen, selectedProject]);
+
+  function handleShow() {
+    setIsShow((prev) => !prev);
+  }
+  function handleClick(project) {
+    setSelectedProject(project);
+    setIsOpen(true);
+  }
+
+  function handleClose() {
+    if (!modalRef.current || isClosing) return;
+
+    setIsClosing(true);
+
+    gsap.to(modalRef.current, {
+      opacity: 0,
+      y: 24,
+      scale: 0.97,
+      duration: 0.25,
+      ease: "power2.in",
+      onComplete: () => {
+        setIsOpen(false);
+        setIsClosing(false);
+      },
+    });
+  }
 
   return (
     <section
@@ -140,9 +225,8 @@ export default function Project() {
     >
       <div className="mx-auto max-w-6xl px-6 py-24 sm:px-10">
         <SectionTitle id="project-title">Project</SectionTitle>
-
         <ul className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-2">
-          {projects.map((p) => (
+          {visibleProjects.map((p) => (
             <li key={p.title} data-anim="item">
               <SpotlightCard
                 theme="dark"
@@ -202,38 +286,135 @@ export default function Project() {
                         ))}
                       </ul>
                     )}
-
-                    {(p.demo || p.repo) && (
-                      <div className="mt-6 flex gap-6">
-                        {p.demo && (
-                          <a
-                            href={p.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={linkClass}
-                          >
-                            Lihat
-                          </a>
-                        )}
-
-                        {p.repo && (
-                          <a
-                            href={p.repo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={linkClass}
-                          >
-                            Github
-                          </a>
-                        )}
-                      </div>
-                    )}
+                    <div className="mt-6 flex gap-6">
+                      <button
+                        className={primaryBtn}
+                        onClick={() => handleClick(p)}
+                      >
+                        Lihat Detail
+                      </button>
+                    </div>
                   </div>
                 </article>
               </SpotlightCard>
             </li>
           ))}
         </ul>
+
+        {isOpen && selectedProject && (
+          <div
+            ref={overlayRef}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+            onClick={() => setIsOpen(false)}
+          >
+            <div
+              ref={modalRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-title"
+              className="relative max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-white/20 bg-[#111111]/95 text-white shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Tombol tutup */}
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                aria-label="Tutup detail project"
+                className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/60 text-xl text-white/80 transition hover:bg-white/20 hover:text-white"
+              >
+                &times;
+              </button>
+
+              {/* Gambar project */}
+              {selectedProject.image && (
+                <img
+                  src={selectedProject.image}
+                  alt={`Tangkapan layar ${selectedProject.title}`}
+                  className="aspect-video w-full border-b border-white/10 object-cover"
+                />
+              )}
+
+              {/* Isi detail */}
+              <div className="p-6 sm:p-8">
+                <span className="inline-block rounded-full border border-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/70">
+                  {selectedProject.label}
+                </span>
+
+                <h2
+                  id="modal-title"
+                  className="mt-4 text-2xl font-extrabold sm:text-3xl"
+                >
+                  {selectedProject.title}
+                </h2>
+
+                <p className="mt-4 leading-7 text-white/70">
+                  {selectedProject.description}
+                </p>
+
+                <div className="mt-6">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-white/50">
+                    Peran Saya
+                  </h3>
+                  <p className="mt-2 text-white/90">{selectedProject.role}</p>
+                </div>
+
+                {selectedProject.stack.length > 0 && (
+                  <div className="mt-6">
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-white/50">
+                      Teknologi
+                    </h3>
+
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {selectedProject.stack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-white/80"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-8 flex justify-start gap-6">
+                  {selectedProject.demo && (
+                    <a
+                      href={selectedProject.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={primaryBtn}
+                    >
+                      Live Demo
+                    </a>
+                  )}
+                  {selectedProject.repo && (
+                    <a
+                      href={selectedProject.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={primaryBtn}
+                    >
+                      Github
+                    </a>
+                  )}
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    className={primaryBtn}
+                  >
+                    Tutup Detail
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className="mx-auto flex justify-center p-6">
+          <button type="button" className={primaryBtn} onClick={handleShow}>
+            {isShow ? "Lihat Sedikit →" : "Lihat Semua →"}
+          </button>
+        </div>
       </div>
     </section>
   );
