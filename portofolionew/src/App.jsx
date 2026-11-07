@@ -29,7 +29,7 @@ export default function App() {
 
       {/* Semua section berada di atas background */}
       <div className="relative z-10">
-        <Navbar />
+        {/* <Navbar /> */}
         <Hero ready={ready} />
         <About />
         <Project />

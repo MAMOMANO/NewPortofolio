@@ -171,11 +171,7 @@ export default function About() {
             data-anim="text"
             className="mt-10 flex flex-wrap items-center gap-5"
           >
-            <a
-              href="/CV Mariano Antonino-UI/UX.pdf"
-              download
-              className={primaryBtn}
-            >
+            <a href="/CV_Mariano_Antonino.pdf" download className={primaryBtn}>
               Download CV
               <DownloadIcon />
             </a>
