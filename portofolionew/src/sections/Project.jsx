@@ -16,11 +16,29 @@ const primaryBtn = `group inline-flex items-center gap-3 rounded-full bg-white p
 
 const projects = [
   {
+    title: "Sistem Manajemen Workspace & HR (Web App)",
+    label: "Freelance",
+    description:
+      "Dashboard ERP untuk mengelola beberapa perusahaan dalam satu workspace.",
+    masalah:
+      "Proses kepegawaian seperti absensi, izin/cuti, pinjaman, reimburse, lembur, dan penggajian sering tersebar di banyak tempat sehingga sulit dikelola.",
+    solusi:
+      "merancang dua sisi antarmuka, admin dan user, lengkap dengan prototype klik untuk masing-masing role Admin: dashboard, absensi, approval, pinjaman, reimburse, gaji, lembur, jadwal, daftar user, dan pengaturan. User: absensi dengan pengenalan wajah, approval, pinjaman, reimburse, gaji, lembur, profil, dan jadwal.",
+    stack: ["Figma"],
+    role: "UI/UX Designer · Figma",
+    image: "/img/erp.png",
+    demo: "https://www.figma.com/design/QJLpOo7UYM7XrSniGXnanP/ERP-PROJECT?t=K5mo6TTKdzUKSJml-1",
+    // repo: "https://github.com/MAMOMANO/ABSENSI",
+  },
+  {
     title: "GoGalon",
     label: "Tugas Akhir",
     description:
       "Sistem pemesanan galon dengan tracking pesanan dan chat real-time.",
-
+    masalah:
+      "Pemesanan galon sering dilakukan manual lewat chat atau telepon, sehingga urutan pesanan dan statusnya mudah tercecer.",
+    solusi:
+      "Website pemesanan galon dengan antrean pesanan First Come First Served (FCFS) dan notifikasi real-time, Chat antara kurir dan pelanggan, sehingga pesanan diproses sesuai urutan dan pengguna tahu statusnya",
     stack: [
       "Laravel",
       "PostgreSQL",
@@ -28,7 +46,7 @@ const projects = [
       "Enggine Ngrok",
       "Websocket",
     ],
-    role: "Frontend & ui/ux",
+    role: "Pengembangan sistem dan perancangan UI/UX",
     image: "/img/galon.png",
     // demo: "LocallHost",
     repo: "https://github.com/hilmyhafizhhh/go-galon-project",
@@ -38,32 +56,15 @@ const projects = [
     label: "Freelance",
     description:
       "Undangan digital interaktif dengan desain modern dan animasi.",
-
-    stack: ["React", "Firebase", "GSAP"],
-    role: "Frontend Developer",
+    masalah:
+      "Undangan digital sering terasa statis dan tamu kesulitan mengonfirmasi kehadiran.",
+    solusi:
+      "Merancang Wireframe di Figma, lalu membangunnya menjadi website responsif dengan React dan Tailwind CSS. Animasi scroll memakai GSAP agar pengalaman membuka undangan terasa hidup, dan fitur RSVP membuat tamu bisa mengonfirmasi kehadiran serta mengirim ucapan.",
+    stack: ["Figma", "React", "Firebase", "GSAP"],
+    role: "UI/UX Designer & Front-End Developer",
     image: "/img/wedding.png",
     demo: "https://wedding-invitation-mau9.vercel.app/",
     repo: "https://github.com/MAMOMANO/Wedding-Invitation",
-  },
-  {
-    title: "Winnicode Absensi",
-    label: "Magang",
-    description:
-      "Sistem absensi karyawan berbasis pengenalan wajah, QR Code, dan lokasi.",
-
-    stack: [
-      "HTML",
-      "Tailwindcss",
-      "Javascript",
-      "Node Js",
-      "Express Js",
-      "Python",
-      "MYSQL",
-    ],
-    role: "Fullstack Developer",
-    image: "/img/absensi.png",
-    // demo: "LocallHost",
-    repo: "https://github.com/MAMOMANO/ABSENSI",
   },
   {
     title: "Company Profile & Pemesanan Online",
@@ -78,17 +79,45 @@ const projects = [
     // repo: "https://github.com/MAMOMANO/ABSENSI",
   },
   {
-    title: "ERP Web App dengan Manajemen Workspace",
+    title: "Website Koperasi Rajeg Mandiri (Proyek Tim)",
     label: "Freelance",
     description:
-      "Dashboard ERP untuk mengelola beberapa perusahaan dalam satu workspace.",
+      "Website Koperasi Internal yang dilengkapi dengan fitur Simpan Pinjam, Rekap dan Laporan Keuangan, dll",
+    masalah:
+      "Masih Melakukan rekap dan laporan secara manual belum ada sistem terpusat.",
+    solusi:
+      "Merancang antarmuka website koperasi di Figma, prototype, dengan fitur fitur yang bisa menyelesaikan masalah yang ada di koperasi",
 
     stack: ["Figma"],
     role: "UI/UX Designer · Figma",
-    image: "/img/erp.png",
-    demo: "https://www.figma.com/design/QJLpOo7UYM7XrSniGXnanP/ERP-PROJECT?t=K5mo6TTKdzUKSJml-1",
+    image: "/img/koperasi.png",
+    demo: "https://www.figma.com/design/PFhZ0sh7FmVyxElZdoQ1Vh/Digital-Printing?t=K5mo6TTKdzUKSJml-1",
     // repo: "https://github.com/MAMOMANO/ABSENSI",
   },
+  {
+    title: "Winnicode Absensi",
+    label: "Magang",
+    description:
+      "Sistem absensi karyawan berbasis pengenalan wajah, QR Code, dan lokasi.",
+    masalah:
+      "Karyawan yang bekerja online/remote perlu cara absen yang akurat dan sulit dimanipulasi dan masih menggunakan loogbook",
+    solusi:
+      "Sistem absensi dengan tiga lapis validasi: QR Code, pengenalan wajah (face recognition), dan lokasi (geolocation), agar kehadiran tercatat akurat dan sesuai lokasi kerja.",
+    stack: [
+      "HTML",
+      "Tailwindcss",
+      "Javascript",
+      "Node Js",
+      "Express Js",
+      "Python",
+      "MYSQL",
+    ],
+    role: "Fullstack Developer",
+    image: "/img/absensi.png",
+    // demo: "LocallHost",
+    repo: "https://github.com/MAMOMANO/ABSENSI",
+  },
+
   {
     title: "Weather App",
     label: "Proyek Pribadi",
@@ -147,13 +176,8 @@ export default function Project() {
   const [isClosing, setIsClosing] = useState(false);
   const modalRef = useRef(null);
   const overlayRef = useRef(null);
-  const visibleProjects = isShow ? projects : projects.slice(0, 4);
+  const visibleProjects = isShow ? projects : projects.slice(0, 5);
 
-  useEffect(() => {
-    ScrollTrigger.refresh();
-  }, [isShow]);
-
-  
   useEffect(() => {
     if (!isOpen) return;
 
@@ -191,8 +215,27 @@ export default function Project() {
   }, [isOpen, selectedProject]);
 
   function handleShow() {
-    setIsShow((prev) => !prev);
+    const sedangMembuka = !isShow;
+    const scrollSebelum = window.scrollY;
+
+    setIsShow(sedangMembuka);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (sedangMembuka) {
+          // Lihat Semua: pertahankan posisi
+          window.scrollTo({ top: scrollSebelum, behavior: "instant" });
+        } else {
+          // Lihat Sedikit: kembali ke awal section Project
+          document.getElementById("project")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      });
+    });
   }
+
   function handleClick(project) {
     setSelectedProject(project);
     setIsOpen(true);
@@ -221,7 +264,7 @@ export default function Project() {
       ref={root}
       id="project"
       aria-labelledby="project-title"
-      className="relative text-white z-10"
+      className="relative text-white z-10 overflow-anchor-none"
     >
       <div className="mx-auto max-w-6xl px-6 py-24 sm:px-10">
         <SectionTitle id="project-title">Project</SectionTitle>
@@ -339,25 +382,30 @@ export default function Project() {
                 <span className="inline-block rounded-full border border-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/70">
                   {selectedProject.label}
                 </span>
-
                 <h2
                   id="modal-title"
                   className="mt-4 text-2xl font-extrabold sm:text-3xl"
                 >
                   {selectedProject.title}
                 </h2>
-
                 <p className="mt-4 leading-7 text-white/70">
                   {selectedProject.description}
                 </p>
-
+                <hr className="w-full border-white/30 mt-4" />{" "}
+                <h3 className="mt-4 font-bold text-white">Masalah</h3>
+                <p className="mt-4 leading-7 text-white/70">
+                  {selectedProject.masalah}
+                </p>
+                <hr className="w-full border-white/30 mt-4" />{" "}
+                <p className="mt-4 leading-7 text-white/70">
+                  {selectedProject.solusi}
+                </p>
                 <div className="mt-6">
                   <h3 className="text-sm font-semibold uppercase tracking-wider text-white/50">
                     Peran Saya
                   </h3>
                   <p className="mt-2 text-white/90">{selectedProject.role}</p>
                 </div>
-
                 {selectedProject.stack.length > 0 && (
                   <div className="mt-6">
                     <h3 className="text-sm font-semibold uppercase tracking-wider text-white/50">
@@ -376,7 +424,6 @@ export default function Project() {
                     </div>
                   </div>
                 )}
-
                 <div className="mt-8 flex justify-start gap-6">
                   {selectedProject.demo && (
                     <a

@@ -21,7 +21,7 @@ export default function Contact() {
       className="relative text-white text-center"
     >
       <div className="mx-auto max-w-6xl px-6 py-24 sm:px-10">
-        <SectionTitle id="contact-title">YOU WANT</SectionTitle>
+        <SectionTitle id="contact-title">Let's Connect</SectionTitle>
 
         <p
           data-anim="item"

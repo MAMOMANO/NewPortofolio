@@ -2,11 +2,31 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import TextPressure from "../components/TexsPresure";
+import FoldText from "../components/FoldText";
 
 gsap.registerPlugin(useGSAP);
 
 export default function Hero({ ready = true }) {
   const root = useRef(null);
+  const foldProps = {
+    foldStyle: "paper",
+    splitBy: "char",
+    hinge: "top",
+    trigger: "mount",
+    foldAngle: 92,
+    duration: 0.65,
+    stagger: 0.045,
+    staggerFrom: "start",
+    ease: "power3.out",
+    loopDelay: 1.4,
+    hoverRefold: true,
+    refoldRadius: 140,
+    refoldAngle: 45,
+    perspective: 700,
+    creaseShading: 0.55,
+    fontSize: 48, // lihat catatan di bawah
+    fontWeight: 800,
+  };
 
   useGSAP(
     () => {
@@ -48,14 +68,14 @@ export default function Hero({ ready = true }) {
 
       <div className="mx-auto flex min-h-svh max-w-7xl flex-col px-6 py-10 sm:px-10">
         {/* TENGAH: role kiri & kanan, sejajar kepala */}
-        <div className="flex flex-1 items-center pb-[12svh] lg:pb-[24svh]">
+        <div className="flex flex-1 items-center pb-[46svh] sm:pb-[20svh] lg:pb-[24svh]">
           <div
             data-hero="fade"
             className="grid w-full grid-cols-1 items-center gap-6 text-center font-semibold lg:grid-cols-[1fr_auto_1fr] lg:gap-0"
           >
-            <p className="text-4xl lg:text-right xl:text-5xl">
-              FRONTEND DEVELOPER
-            </p>
+            <div className="min-w-0 [container-type:inline-size] lg:text-right">
+              <FoldText text="UI/UX DESIGNER" {...foldProps} />
+            </div>
 
             {/* Ruang kosong tempat kepala di video; lebarkan untuk menjauhkan teks */}
             <div
@@ -63,7 +83,9 @@ export default function Hero({ ready = true }) {
               className="hidden lg:block lg:w-[42vw] lg:max-w-xl"
             />
 
-            <p className="text-4xl lg:text-left xl:text-5xl">UI/UX Designer</p>
+            <div className="min-w-0 [container-type:inline-size] lg:text-left">
+              <FoldText text="FRONTEND DEVELOPER" {...foldProps} />
+            </div>
           </div>
         </div>
 

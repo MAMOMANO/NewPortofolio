@@ -14,7 +14,7 @@ export default function App() {
   const [showLoader, setShowLoader] = useState(true);
 
   return (
-    <div className="relative isolate min-h-screen bg-black text-white">
+    <div className="relative isolate min-h-dvh overflow-x-clip bg-black text-white">
       {/* Background paling belakang */}
       <div className="pointer-events-none fixed inset-0 z-0 opacity-50">
         <Topography color="#ffffff" opacity={0.4} speed={0.2} />

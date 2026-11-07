@@ -7,14 +7,19 @@ import ProfilleCard from "../components/ProfilleCard";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-400";
 
 const kicker =
   "block text-sm font-semibold uppercase tracking-[0.25em] text-white";
 
-const primaryBtn = `group inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 font-semibold text-black transition-all duration-300 hover:-translate-y-1 hover:bg-purple-400 hover:text-white hover:shadow-[0_10px_35px_rgba(168,85,247,0.25)] active:translate-y-0 active:scale-95 ${focusRing}`;
+const primaryBtn = `group inline-flex items-center gap-3 rounded-full
+  bg-white px-7 py-4 font-semibold text-black
+  transition-all duration-300 ease-out
+  hover:-translate-y-1
+  hover:bg-purple-400 hover:text-white
+  hover:shadow-[0_10px_35px_rgba(168,85,247,0.25)]
+  active:scale-95 ${focusRing}`;
 
 const secondaryBtn = `group inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:border-purple-400 hover:bg-purple-400/10 active:translate-y-0 active:scale-95 ${focusRing}`;
 
@@ -63,7 +68,7 @@ export default function About() {
         tl.from("[data-anim='title']", { y: 50, opacity: 0, duration: 0.9 })
           .from(
             "[data-anim='card']",
-            
+
             { y: 40, opacity: 0, duration: 0.8, clearProps: "transform" },
             "-=0.5",
           )
@@ -78,8 +83,11 @@ export default function About() {
     },
     { scope: root },
   );
+  console.trace("scrollToContact dipanggil dari:");
 
   const scrollToContact = () => {
+    console.log("TOMBOL PROJECT DIKLIK");
+
     document
       .getElementById("contact")
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -163,7 +171,11 @@ export default function About() {
             data-anim="text"
             className="mt-10 flex flex-wrap items-center gap-5"
           >
-            <a href="/cv.pdf" download className={primaryBtn}>
+            <a
+              href="/CV Mariano Antonino-UI/UX.pdf"
+              download
+              className={primaryBtn}
+            >
               Download CV
               <DownloadIcon />
             </a>
